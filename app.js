@@ -1,99 +1,55 @@
-// const log = require('./logger');
+// fungsi node js dibawah ini dibawah ini mengikuti tutorial di w3school
 
-// log('andhika');
+// const http = require('http');
+// const dt = require('./logger');
 
+// http.createServer((req, res) => {
+//     res.writeHead(200, { 'Content-Type': 'text/html' });
+//     res.write(testServer());
+//     res.end();
+// }).listen(8080);
 
-// const url = require('./logger')
-
-// url('HTTP://google.com');
-
-// kode dibawah salah satu dari dokumentasi untuk melakukan suatu path folder dan berbagai fungsi lainya
-
-// const path = require('path');
-
-
-
-// const directory = path.parse(__filename);
-
-// console.log(directory);
-
-// kode dibawah ini untuk menampilkan total memory
-
-// const os = require('os');
-
-// const freeMemory = os.freemem();
-// const totaMemory = os.totalmem();
-
-
-// console.log(freeMemory);
-// console.log(totaMemory);
-
-// kode dibawah ini untuk menampilkan isi folder yang dibuka sekarang metode asynchronus
-
-// const fs = require('fs');
-
-// const inifile = fs.readdirSync('./');
-
-// console.log(inifile);
+// console.log('listening on port ....');
 
 // 
 
-// const hasil = fs.readdir('./', function (err, res) {
+// const http = require('http');
 
-//     if (res) console.log("Hasil : ", res);
-//     else console.log("Error : ", err);
+// http.createServer((req, res) => {
 
+//     res.write('hello world');
+//     res.end();
 
-// })
-
-
-// console.log(hasil);
+// }).listen(8080);
 
 
-// const EventEmmiter = require('events');
-// const Logger = require('./logger');
+// var http = require('http');
+// http.createServer(function (req, res) {
+//     res.writeHead(200, { 'Content-Type': 'text/html' });
+//     res.write('Hello World!');
+//     res.end();
+// }).listen(8080);
 
-
-// const logger = new Logger;
-
-// logger.on('messageLogged', (e) => {
-//     console.log('message received', e);
-// });
-
-// logger.log('hallo');
-
-
-// kode dibawah ini hanya mengulang kode diatas
-
-// const Called = require('./logger');
-
-// const called = new Called;
-
-
-// called.on('turnOn', e => console.log('Running on port :', e));
-
-// called.call(200);
+// Read the Query String
+// var http = require('http');
+// http.createServer(function (req, res) {
+//     res.writeHead(200, { 'Content-Type': 'text/html' });
+//     res.write(req.url);
+//     res.end();
+// }).listen(8080);
 
 
 
+// kode dibawah ini untuk parsing URL
 const http = require('http');
+const url = require('url');
 
-const server = http.createServer((req, res) => {
-    if (req.url === '/') {
-        res.write('<h1>Welcome</h1>');
-        res.end();
-    }
-    if (req.url === '/api/courses') {
-        res.write(JSON.stringify([nama = "andhika", email = "moh.andhika16@gmail.com", nim = 19533080]));
-        res.end();
-    }
-}).listen(3000);
-console.log('Listening on port 3000..');
-
-
-
-
-
+http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text-html' });
+    const q = url.parse(req.url, true).query;
+    const txt = q.year + '' + q.month;
+    res.end(txt);
+}).listen(8080)
 
 
 
