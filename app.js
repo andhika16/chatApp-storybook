@@ -25,11 +25,11 @@
 // const qdata = q.query;
 // console.log(qdata.year);
 
-const http = require('http');
-const fs = require('fs');
-const url = require('url');
+// const http = require('http');
+// const fs = require('fs');
+// const url = require('url');
 
-const uc = require('upper-case')
+// const uc = require('upper-case')
 
 // http.createServer((req, res) => {
 //     const q = url.parse(req.url, true);
@@ -45,12 +45,34 @@ const uc = require('upper-case')
 //     });
 // }).listen(8080);
 let txt = `halo david disini saya akan mereview samsung note 10 dengan performa yang gahar dan legit`
+// http.createServer((req, res) => {
+//     res.writeHead(404, { 'Content-Type': 'text-html' });
+//     res.write(uc.upperCase(txt));
+//     res.end();
+
+// }).listen(3000);
+
+
+// Event emitter node js w3school
+
+
+const http = require('http');
+const fs = require('fs');
+const url = require('url');
+
 http.createServer((req, res) => {
-    res.writeHead(404, { 'Content-Type': 'text-html' });
-    res.write(uc.upperCase(txt));
-    res.end();
+    const q = url.parse(req.url, true);
+    const fileName = `./${q.pathName}`;
+    fs.readFile(fileName, (err, data) => {
+        if (err) {
+            res.writeHead(404, { 'Content-Type': 'Text-Type' });
+            console.log('404 Not Found !');
+
+        }
+        res.writeHead(200, { 'Content-Type': 'Text-Type' });
+        res.write(data);
+        res.end();
+    })
 
 }).listen(3000);
-
-
-
+console.log('listening server 3000....');
