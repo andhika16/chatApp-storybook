@@ -11,55 +11,46 @@
 
 // console.log('menjalankan server...8080');
 
+// URL module w3school
 
-// Node js file system from w3school
+// const url = require('url');
+// const adr = 'http://localhost:8080/default.htm?year=2020&month=juni'
+// const q = url.parse(adr, true);
 
+
+// console.log(q.host);
+// console.log(q.pathname);
+// console.log(q.search);
+
+// const qdata = q.query;
+// console.log(qdata.year);
 
 const http = require('http');
 const fs = require('fs');
+const url = require('url');
+
+const uc = require('upper-case')
 
 // http.createServer((req, res) => {
-
-//     fs.readFile('./demoFile1.html', (err, data) => {
-//         res.writeHead(200, { 'Content-Type': 'Text/html' });
+//     const q = url.parse(req.url, true);
+//     const fileName = `.${q.pathname}`;
+//     fs.readFile(fileName, (err, data) => {
+//         if (err) {
+//             res.writeHead(404, { 'Content-Type': 'text-html' });
+//             return res.end('404 Not Found!');
+//         }
+//         res.writeHead(200, { 'Content-Type': 'text-html' });
 //         res.write(data);
 //         return res.end();
-//     })
-
+//     });
 // }).listen(8080);
+let txt = `halo david disini saya akan mereview samsung note 10 dengan performa yang gahar dan legit`
+http.createServer((req, res) => {
+    res.writeHead(404, { 'Content-Type': 'text-html' });
+    res.write(uc.upperCase(txt));
+    res.end();
+
+}).listen(3000);
 
 
-// const fs = require('fs');
-
-fs.appendFile('newFile1.txt', 'Hello content', (err) => {
-    if (err) throw err;
-    console.log('saved!');
-});
-
-
-fs.open('newFile2.txt', 'w', (err, file) => {
-    if (err) throw err;
-    console.log('Saved!');
-});
-let txt = 'halo nama saya andhika saya dari ponorogo saya seorang web developer dan impian saya menjadi founder dari profil desa.com';
-
-
-fs.writeFile('newFile2.txt', txt, err => {
-    if (err) throw err;
-    console.log('Saved!');
-
-});
-
-fs.appendFile('newFile2.txt', txt, (err) => {
-    if (err) throw err;
-    console.log('Saved!');
-
-})
-
-
-fs.unlink('newFile2.txt', (err) => {
-    if (err) throw err;
-    console.log('File Deleted !');
-
-})
 
