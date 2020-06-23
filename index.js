@@ -21,28 +21,25 @@ app.get('/', (req, res) => {
 
 
 app.get('/api/courses', (req, res) => {
-    res.send([1, 2, 3]);
+    res.send(courses);
 });
 
 
 app.get('/api/courses/:id', (req, res) => {
-    const courses = course.find(c => c.id === parseInt(req.params.id));
-    if (!courses) res.status(404).send('404 ID not Found');
-    res.send(courses);
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) res.status(404).send('404 ID not Found');
+    res.send(course);
 })
 
 
 app.post('/api/courses', (req, res) => {
-    const schema = {
-        name: Joi.string().min(3).required()
-    }
-
-    const result = Joi.validate(req.body, schema);
 
 
-    // this code below is manual error handling.
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
+
+    const { error } = validateCourse(req.body);
+
+    if (error) {
+        res.status(400).send(error.details[0].message);
         return;
     }
 
@@ -57,7 +54,36 @@ app.post('/api/courses', (req, res) => {
 
 });
 
+app.put('/api/courses/:id', (req, res) => {
+    //  look up the courses
+    // if not exsisting , 404 Not Found
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) res.status(404).send('404 ID not Found');
 
+    // validate
+    // if invalid return 400 bad request
+    const { error } = validateCourse(req.body)
+    if (error) {
+        res.status(400).send(error.details[0].message);
+        return;
+    }
+
+    // update coures
+    course.name = req.body.name;
+    res.send(course)
+    // return update
+})
+
+
+
+function validateCourse(course) {
+
+    const schema = {
+        name: Joi.string().min(3).required()
+    }
+
+    return Joi.validate(course, schema);
+}
 
 const port = process.env.port || 3000
 app.listen(port, () => console.log(`listening on port ${port}`))
