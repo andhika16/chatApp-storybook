@@ -1,18 +1,50 @@
-// STREAM AND BUFFER
+const http = require('http');
 const fs = require('fs');
 
-const readStream = fs.createReadStream('./docs/blog2.txt', { encoding: "utf-8" });
-const writeStream = fs.createWriteStream('./docs/blog4.txt');
 
-// readStream.on('data', (chunk) => {
+const server = http.createServer((req, res) => {
 
-//     // console.log('---- NEW CHUNKS ----');
-//     // console.log(chunk);
+    let path = './views/';
 
-//     writeStream.write('\nNEW CHUNK\n');
-//     writeStream.write(chunk);
+    switch (req.url) {
+        case '/':
+            path += 'index.html';
+            res.statusCode = 200;
+            break;
+        case '/about':
+            path += 'about.html';
+            res.statusCode = 200;
+            break;
+        case '/about-me':
+            res.statusCode = 301;
+            res.setHeader('Location', '/about');
+            res.end();
+            break;
+        case '/contact':
+            path += 'contact.html';
+            res.statusCode = 200;
+            break;
+        default:
+            path += '404.html'
+            res.statusCode = 404;
+            break;
+    }
 
-// });
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            res.setHeader('Content-type', 'Text/html');
+            res.end(data);
+        }
 
-//  PIPING
-readStream.pipe(writeStream)
+    })
+
+
+})
+
+
+server.listen(3000, () => {
+    console.log('listening on server');
+});
