@@ -1,9 +1,16 @@
+"use strict";
+
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 app.listen(3000, () => {
     console.log('server running on port...');
 })
+
+
+// app.use(morgan('dev'));
+app.use(express.static('public'));
 
 // registering view engnine
 app.set('view engine', 'ejs');
@@ -34,4 +41,5 @@ app.use((req, res) => {
     // res.status(404).sendFile('./views/404.html', { root: __dirname });
     res.status(404).render('404', { title: '404' })
 });
+
 
