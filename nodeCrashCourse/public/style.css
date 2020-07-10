@@ -8,3 +8,21 @@ body{
 .title{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.details {
+  position: relative;
+}
+
+.delete{
+  position: absolute;
+  top: 0px;
+  right: 0;
+  border-radius: 50%;
+  padding: 8px;
+
+}
+.delete:hover{
+
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}

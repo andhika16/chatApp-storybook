@@ -1,23 +1,23 @@
-<%- include('partials/header') %>
+<%- include('./partials/header') %>
 
 <div class="container create content">
     <h1>New Blogs</h1>
 
 
-    <form action="">
+    <form action="/blogs" method="POST">
 
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="blogName">Blog Name</label>
-                <input type="text" class="form-control" id="blogName" placeholder="your blogs">
+                <input type="text" class="form-control" id="title" name="title" placeholder="your blogs">
             </div>
             <div class="form-group">
                 <label for="snippets">Snippets</label>
-                <input type="text" class="form-control" id="snippets" placeholder="your snippets">
+                <input type="text" class="form-control" id="snippets" name="snippet" placeholder="your snippets">
             </div>
             <div class="form-group">
                 <label for="blogBody">Blog Body</label>
-                <textarea class="form-control" id="blogBody" rows="3"></textarea>
+                <textarea class="form-control" id="body" name="body" rows="3"></textarea>
             </div>
             <button class="btn btn-primary">Submit</button>
 
@@ -26,4 +26,4 @@
 
 </div>
 
-<%- include('partials/footer') %>
+<%- include('./partials/footer') %>
