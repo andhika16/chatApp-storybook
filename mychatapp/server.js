@@ -20,7 +20,7 @@ const io = socketio(server)
 // static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-const botName = 'chatBot'
+const botName = 'Chat panduan'
 // run when user connection
 io.on('connection', socket => {
     socket.on('joinRoom', ({
@@ -32,10 +32,10 @@ io.on('connection', socket => {
         socket.join(user.room);
 
         // welcome current user
-        socket.emit('message', formatMessage(botName, 'Welcome to chardcode!!'));
+        socket.emit('message', formatMessage(botName, 'Selamat Datang di grup ghibah anda disini bisa curhat, rasan-rasan, mengungkapkan keresahan dll.'));
 
         // broadcast when a user connects
-        socket.broadcast.to(user.room).emit('message', formatMessage(user.username, `${user.username} has joined the chat`));
+        socket.broadcast.to(user.room).emit('message', formatMessage(user.username, `${user.username} bergabung`));
         // Send users and room info
         io.to(user.room).emit('roomUsers', {
             room: user.room,
@@ -56,7 +56,7 @@ io.on('connection', socket => {
         const user = userLeave(socket.id)
 
         if (user) {
-            io.to(user.room).emit('message', formatMessage(botName, `${user.username}has left the chat`));
+            io.to(user.room).emit('message', formatMessage(botName, `${user.username} meninggalkan grup`));
             // Send users and room info
             io.to(user.room).emit('roomUsers', {
                 room: user.room,
