@@ -3,7 +3,8 @@ const express = require('express'),
     {
         ensureAuth,
         ensureGuest
-    } = require('../middleware/auth');
+    } = require('../middleware/auth'),
+    Story = require('../models/Story');
 
 
 //  @desc login/landing page
@@ -16,10 +17,22 @@ route.get('/', ensureGuest, (req, res) => {
 
 //  @desc Dashboard
 //  @dashboard GET / 
-route.get('/dashboard', ensureAuth, (req, res) => {
-    res.render('dashboard', {
-        name: req.user.firstName
-    })
+route.get('/dashboard', ensureAuth, async (req, res) => {
+
+    try {
+        const stories = await Story.find({
+            user: req.user.id
+        }).lean()
+        res.render('dashboard', {
+            name: req.user.firstName,
+            stories
+        })
+    } catch (err) {
+        console.log(err);
+        res.render('error/500')
+    }
+
+
 })
 
 
