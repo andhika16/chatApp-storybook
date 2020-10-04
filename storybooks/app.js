@@ -1,7 +1,3 @@
-const {
-    connect
-} = require('mongoose');
-
 const path = require('path'),
     express = require('express'),
     dotenv = require('dotenv'),
